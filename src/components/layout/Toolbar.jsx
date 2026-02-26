@@ -4,7 +4,6 @@ import CopyButton from "../CopyButton";
 import BackupButton from "../BackupButton";
 import RestoreButton from "../RestoreButton";
 import GistImport from "../GistImport";
-import Search from "../Search";
 
 export default function Toolbar() {
   return (
@@ -30,12 +29,6 @@ export default function Toolbar() {
         </div>
 
       </div>
-
-      {/* ROW 2 → SEARCH */}
-      <div className="mt-2">
-        <Search />
-      </div>
-
     </div>
   );
 }

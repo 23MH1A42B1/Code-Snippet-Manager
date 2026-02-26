@@ -7,6 +7,8 @@ const useSnippetStore = create(
 
       snippets: [],
 
+      search: "",
+
       selectedSnippetId: null,
 
       theme: "vs-dark",
@@ -53,6 +55,12 @@ const useSnippetStore = create(
               ? "vs"
               : "vs-dark",
         })),
+
+      // SEARCH
+      setSearch: (value) =>
+        set({
+          search: value,
+        }),
 
     }),
     {

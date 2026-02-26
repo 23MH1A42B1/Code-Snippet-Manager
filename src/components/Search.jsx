@@ -2,6 +2,10 @@ import useSnippetStore from "../store/snippetStore";
 
 export default function Search() {
 
+  const search = useSnippetStore(
+    (state) => state.search
+  );
+
   const setSearch = useSnippetStore(
     (state) => state.setSearch
   );
@@ -11,6 +15,7 @@ export default function Search() {
       type="text"
       data-testid="search-input"
       placeholder="Search snippets..."
+      value={search}
       onChange={(e) =>
         setSearch(e.target.value)
       }

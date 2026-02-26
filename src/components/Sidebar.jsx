@@ -7,6 +7,10 @@ export default function Sidebar() {
     (state) => state.snippets
   );
 
+  const search = useSnippetStore(
+    (state) => state.search
+  );
+
   const selectedSnippetId = useSnippetStore(
     (state) => state.selectedSnippetId
   );
@@ -19,10 +23,42 @@ export default function Sidebar() {
     (state) => state.deleteSnippet
   );
 
+  const normalizedSearch = search
+    .trim()
+    .toLowerCase();
+
+  const filteredSnippets = snippets.filter(
+    (snippet) => {
+      if (!normalizedSearch) {
+        return true;
+      }
+
+      const title = snippet.title?.toLowerCase() || "";
+      const content = snippet.content?.toLowerCase() || "";
+      const language = snippet.language?.toLowerCase() || "";
+      const tags = Array.isArray(snippet.tags)
+        ? snippet.tags.join(" ").toLowerCase()
+        : "";
+
+      return (
+        title.includes(normalizedSearch) ||
+        content.includes(normalizedSearch) ||
+        language.includes(normalizedSearch) ||
+        tags.includes(normalizedSearch)
+      );
+    }
+  );
+
   return (
     <div>
 
-      {snippets.map((snippet) => (
+      {filteredSnippets.length === 0 && (
+        <div className="p-2 text-sm text-slate-400">
+          No snippets found
+        </div>
+      )}
+
+      {filteredSnippets.map((snippet) => (
 
         <div
           key={snippet.id}
